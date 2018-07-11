@@ -148,7 +148,7 @@ header_matrix_to_column_info <- function(header_matrix, table_id, col_types) {
 
   header_parts[is.na(header_parts)] <- ""
 
-  column_info <- no_factors_data_frame(
+  column_info <- kwb.utils::noFactorDataFrame(
     table_id = table_id,
     column_no = seq_len(n_columns),
     column_names_old = kwb.utils::pasteColumns(header_parts, sep = "|"),
