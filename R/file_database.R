@@ -25,7 +25,7 @@ to_folder_table <- function(folder_paths, remove_common_base = TRUE)
 {
   folders <- sort(unique(folder_paths))
 
-  folder_table <- no_factors_data_frame(
+  folder_table <- kwb.utils::noFactorDataFrame(
     folder_id = add_hex_postfix(folders),
     folder_path = folders
   )
@@ -46,7 +46,7 @@ to_folder_table <- function(folder_paths, remove_common_base = TRUE)
 # to_file_table ----------------------------------------------------------------
 to_file_table <- function(files, lookup_table)
 {
-  no_factors_data_frame(
+  kwb.utils::noFactorDataFrame(
     file_id = sprintf("file_%02X", seq_along(files)),
     file_name = basename(files),
     folder_id = sapply(

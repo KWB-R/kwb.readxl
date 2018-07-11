@@ -42,14 +42,6 @@ add_hex_postfix <- function(x, base_name = NULL)
   sprintf("%s_%02x", base_name, seq_along(x))
 }
 
-# no_factors_data_frame --------------------------------------------------------
-no_factors_data_frame <- function(...) 
-{
-  #kwb.utils::resetRowNames(
-    data.frame(..., stringsAsFactors = FALSE)
-  #)
-}
-
 # stop_formatted ---------------------------------------------------------------
 stop_formatted <- function(fmt, ...)
 {

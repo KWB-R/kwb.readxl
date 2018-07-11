@@ -151,11 +151,12 @@ split_into_tables <- function(
 }
 
 # extend_table_info ------------------------------------------------------------
-extend_table_info <- function(table_info, tables) {
+extend_table_info <- function(table_info, tables)
+{
   dims <- t(sapply(tables, dim))
 
   cbind(
-    no_factors_data_frame(
+    kwb.utils::noFactorDataFrame(
       table_id = add_hex_postfix(tables),
       table_name = ""
     ),
@@ -316,6 +317,7 @@ name_even_tables_by_odd_tables <- function(tables, dbg = TRUE)
     )
 
     tables
+    
   } else {
 
     # Get captions from one-element tables at odd indices
@@ -366,7 +368,8 @@ name_unnamed_tables <- function(table_info, sheet)
 }
 
 # merge_table_infos ------------------------------------------------------------
-merge_table_infos <- function(table_infos) {
+merge_table_infos <- function(table_infos)
+{
   table_info <- kwb.utils::rbindAll(
     table_infos,
     nameColumn = "sheet_id", namesAsFactor = FALSE

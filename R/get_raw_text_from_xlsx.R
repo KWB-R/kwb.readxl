@@ -1,5 +1,6 @@
 # get_raw_text_from_xlsx -------------------------------------------------------
-get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE) {
+get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE)
+{
   stopifnot(is.character(file), length(file) == 1)
   
   # If no sheet name is given, call this function for all sheets in the file
@@ -23,7 +24,9 @@ get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE) {
 
     # Set the sheet metadata as an attribute
     structure(result, sheet_info = sheet_table)
+    
   } else {
+    
     stopifnot(is.character(sheet), length(sheet) == 1)
 
     # Explicitly select all rows starting from the first row. Otherwise empty
@@ -47,8 +50,10 @@ get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE) {
 }
 
 # debug_file -------------------------------------------------------------------
-debug_file <- function(dbg, file) {
+debug_file <- function(dbg, file)
+{
   if (dbg) {
+    
     cat_green_bold_0(sprintf("\n  File: '%s'\n", basename(file)))
 
     cat(sprintf("Folder: '%s'\n", dirname(file)))
@@ -56,18 +61,21 @@ debug_file <- function(dbg, file) {
 }
 
 # debug_formatted --------------------------------------------------------------
-debug_formatted <- function(dbg, fmt, ...) {
+debug_formatted <- function(dbg, fmt, ...)
+{
   kwb.utils::catIf(dbg, sprintf(fmt, ...))
 }
 
 # debug_ok ---------------------------------------------------------------------
-debug_ok <- function(dbg) {
+debug_ok <- function(dbg)
+{
   kwb.utils::catIf(dbg, "ok.\n")
 }
 
 # to_sheet_table ---------------------------------------------------------------
-to_sheet_table <- function(sheets) {
-  no_factors_data_frame(
+to_sheet_table <- function(sheets)
+{
+  kwb.utils::noFactorDataFrame(
     sheet_id = add_hex_postfix(sheets),
     sheet_name = sheets
   )
