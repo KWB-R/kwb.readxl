@@ -10,6 +10,6 @@ This package is based on the package readxl. It provides functions that read all
 
 ## Documentation
 
-Release: [https:://kwb-r.github.io/kwb.readxl](https:://kwb-r.github.io/kwb.readxl)
+Release: [https://kwb-r.github.io/kwb.readxl](https://kwb-r.github.io/kwb.readxl)
 
-Development: [https:://kwb-r.github.io/kwb.readxl/dev](https:://kwb-r.github.io/kwb.readxl/dev)
+Development: [https://kwb-r.github.io/kwb.readxl/dev](https://kwb-r.github.io/kwb.readxl/dev)
