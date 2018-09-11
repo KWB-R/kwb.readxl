@@ -1,11 +1,53 @@
+#devtools::install_github("kwb-r/kwb.fakin")
+#devtools::install_github("kwb-r/kwb.readxl")
+
 # - tag V not required
 # - column "Value" required
 
+#setwd("C:/Users/hsonne/Downloads")
+setwd("~/Desktop/tmp")
+
+# MAIN -------------------------------------------------------------------------
 if (FALSE)
 {
-  file <- "~/Downloads/SMART-Plant_LCA_data_Karmiel_hs.xlsx"
+  file <- "SMART-Plant_LCA_data_Karmiel_v0.3.1.xlsx"
+
+  lca <- read_lca_parameters_from_xls(file)
+
+  View(lca)
   
-  all_matrices <- kwb.readxl:::get_text_tables_from_xlsx(file = file)
+  lca_without_sheet_column <- kwb.utils::removeColumns(lca, "Sheet")
+
+  sub_tables <- lapply(split(lca_without_sheet_column, lca$Sheet), function(x) {
+    
+    lapply(split(x, x$Table), function(xx) {
+      
+      empty_row <- xx[1, ]
+      empty_row[1, ] <- NA
+      
+      kwb.utils::addRowWithName(xx, empty_row, "emtpy_row")
+    })
+  })
+
+  content <- kwb.utils::resetRowNames(do.call(rbind, sub_tables$Baseline))
+    
+  csv_file <- "SMART-Plant_LCA_data_Karmiel_long.csv"
+  
+  write.csv(lca, file = csv_file, row.names = FALSE, na = "")
+  
+  lca_reread <- read.csv(csv_file)
+  
+  kwb.utils::catLines(readLines(csv_file, 4))
+  
+  View(lca_reread)
+}
+
+# read_lca_parameters_from_xls -------------------------------------------------
+read_lca_parameters_from_xls <- function(file)
+{
+  file <- kwb.utils::safePath(file)
+  
+  all_matrices <- kwb.readxl:::get_text_tables_from_xlsx(file)
   
   lca_matrices <- all_matrices[sapply(all_matrices, is_lca_text_matrix)]
   
@@ -18,29 +60,19 @@ if (FALSE)
   data_frames_long <- lapply(data_frames, convert_wide_lca_table_to_long_format)
   
   lca <- kwb.utils::rbindAll(data_frames_long, nameColumn = "Source")
-
+  
   lca$Variable <- gsub("_\\d+$", "", lca$Variable)
-    
+  
   lca$Source <- gsub("^([^.]+)[.].*$", "\\1", lca$Source)
   
   `%>%` <- magrittr::`%>%`
   
   sheet_info <- kwb.readxl:::get_sheet_info(all_matrices)
   
-  lca <- merge(lca, sheet_info, by.x = "Source", by.y = "sheet_id") %>% 
+  merge(lca, sheet_info, by.x = "Source", by.y = "sheet_id") %>% 
     kwb.utils::renameColumns(list(sheet_name = "Sheet")) %>%
     kwb.utils::removeColumns("Source") %>%
     kwb.utils::moveColumnsToFront("Sheet") 
-  
-  csv_file <- "~/Downloads/SMART-Plant_LCA_data_Karmiel_long.csv"  
-
-  write.csv(lca, file = csv_file, row.names = FALSE, na = "")
-  
-  lca_reread <- read.csv(csv_file)
-
-  kwb.utils::catLines(readLines(csv_file, 4))
-  
-  View(lca_reread)
 }
 
 # is_lca_text_matrix -----------------------------------------------------------
@@ -57,7 +89,7 @@ has_lca_matrix_format <- function(lca_matrix)
   has_only_one_T <- (sum(tags == "T") == 1)
   
   all_tags_expected <- all(tags %in% c("T", "H", "V", ""))
-
+  
   has_only_one_T && all_tags_expected
 }
 
