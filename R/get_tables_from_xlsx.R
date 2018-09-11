@@ -126,6 +126,7 @@ split_into_tables <- function(
   debug_formatted(dbg, "%s ... ", text)
   
   tables <- lapply(seq_len(nrow(table_info)), function(i) {
+    
     indices <- table_info$first_row[i]:table_info$last_row[i]
 
     result <- text_sheet[indices, , drop = FALSE]
@@ -133,6 +134,7 @@ split_into_tables <- function(
     result <- delete_empty_columns_right(result)
 
     if (isTRUE(delete_all_empty_columns)) {
+      
       df <- as.data.frame(result)
 
       result <- as.matrix(kwb.utils::removeEmptyColumns(df, dbg = FALSE))
