@@ -8,6 +8,13 @@
 
 This package is based on the package readxl. It provides functions that read all Excel sheets as pure text and then try to split each sheet into a set of line ranges that are assumed to represent single tables.
 
+## Installation
+
+```{r echo = TRUE, eval = FALSE}
+#install.packages("remotes", repos = "https://cloud.r-project.org")
+remotes::install_github("KWB-R/kwb.readxl")
+```
+
 ## Documentation
 
 Release: [https://kwb-r.github.io/kwb.readxl](https://kwb-r.github.io/kwb.readxl)
