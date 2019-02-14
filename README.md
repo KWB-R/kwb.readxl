@@ -1,7 +1,7 @@
 [![Appveyor build Status](https://ci.appveyor.com/api/projects/status/github/KWB-R/kwb.readxl?branch=master&svg=true)](https://ci.appveyor.com/project/KWB-R/kwb-readxl/branch/master)
 [![Travis build Status](https://travis-ci.org/KWB-R/kwb.readxl.svg?branch=master)](https://travis-ci.org/KWB-R/kwb.readxl)
 [![codecov](https://codecov.io/github/KWB-R/kwb.readxl/branch/master/graphs/badge.svg)](https://codecov.io/github/KWB-R/kwb.readxl)
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Project Status](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/kwb.readxl)]()
 
 # kwb.readxl
@@ -10,7 +10,7 @@ This package is based on the package readxl. It provides functions that read all
 
 ## Installation
 
-```{r echo = TRUE, eval = FALSE}
+```r
 #install.packages("remotes", repos = "https://cloud.r-project.org")
 remotes::install_github("KWB-R/kwb.readxl")
 ```

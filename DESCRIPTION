@@ -1,22 +1,42 @@
 Package: kwb.readxl
-Version: 0.1.0.9000
 Title: Read Data From Excel Files
-Description: This package is based on the package readxl. It provides functions that read all Excel sheets as pure text and then try to split each sheet into a set of line ranges that are assumed to represent single tables.
-Authors@R: c(person("Hauke", "Sonnenberg", , "hauke.sonnenberg@kompetenz-wasser.de",
-           role = c("aut", "cre"), comment = c(ORCID = "0000-0001-9134-2871")),
-           person("Kompetenzzentrum Wasser Berlin gGmbH (KWB)", role = c("cph")))
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Hauke",
+             family = "Sonnenberg",
+             role = c("aut", "cre"),
+             email = "hauke.sonnenberg@kompetenz-wasser.de",
+             comment = c(ORCID = "0000-0001-9134-2871")),
+      person(given = "Michael",
+             family = "Rustler",
+             role = "ctb",
+             email = "michael.rustler@kompetenz-wasser.de",
+             comment = "0000-0003-0647-7726"),
+      person(given = "Kompetenzzentrum Wasser Berlin gGmbH",
+             role = "cph"))
+Description: This package is based on the package readxl.
+    It provides functions that read all Excel sheets as pure text and then
+    try to split each sheet into a set of line ranges that are assumed to
+    represent single tables.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-ByteCompile: true
 URL: https://github.com/KWB-R/kwb.readxl
 BugReports: https://github.com/KWB-R/kwb.readxl/issues
-Imports: cellranger, crayon, kwb.event, kwb.fakin, kwb.utils, readxl, stringr
+Imports: 
+    cellranger,
+    crayon,
+    kwb.event,
+    kwb.fakin,
+    kwb.utils,
+    readxl,
+    stringr
+Suggests:
+    covr,
+    testthat
 Remotes: 
     github::kwb-r/kwb.event,
     github::kwb-r/kwb.fakin,
     github::kwb-r/kwb.utils
-Suggests:
-    covr,
-    testthat
-RoxygenNote: 6.1.0
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
