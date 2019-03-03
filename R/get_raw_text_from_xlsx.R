@@ -76,7 +76,7 @@ debug_ok <- function(dbg)
 to_sheet_table <- function(sheets)
 {
   kwb.utils::noFactorDataFrame(
-    sheet_id = add_hex_postfix(sheets),
+    sheet_id = kwb.utils::createIdAlong(sheets),
     sheet_name = sheets
   )
 }

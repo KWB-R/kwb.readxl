@@ -157,7 +157,7 @@ extend_table_info <- function(table_info, tables)
 
   cbind(
     kwb.utils::noFactorDataFrame(
-      table_id = add_hex_postfix(tables),
+      table_id = kwb.utils::createIdAlong(tables),
       table_name = ""
     ),
     first_row = table_info$first_row,
@@ -330,7 +330,7 @@ name_even_tables_by_odd_tables <- function(tables, dbg = TRUE)
     result <- tables[even_indices]
 
     # Renumber the tables in table_info
-    table_info$table_id <- add_hex_postfix(result, "table")
+    table_info$table_id <- kwb.utils::createIdAlong(result, "table")
 
     # Name the tables by their id and set the tables attribute
     structure(result, names = table_info$table_id, table_info = table_info)
@@ -358,7 +358,7 @@ name_unnamed_tables <- function(table_info, sheet)
       
     } else {
       
-      add_hex_postfix(seq_len(n_tables), base_name = sheet)
+      kwb.utils::createIdAlong(seq_len(n_tables), base_name = sheet)
     }
     
     table_info$table_name[is_unnamed] <- table_names[is_unnamed]
