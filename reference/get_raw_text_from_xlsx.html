@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • kwb.readxl</title>
+<title>Read Excel Sheets into List of Character Matrices — get_raw_text_from_xlsx • kwb.readxl</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -36,7 +36,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Read Excel Sheets into List of Character Matrices — get_raw_text_from_xlsx" />
+
+<meta property="og:description" content="This function reads all (given) sheets of one Excel file into a list of
+character matrices. The idea of this function is to return the content of the
+Excel sheets as pure raw text information. No type conversion is performed.
+Empty rows at the beginning are not skipped which would be the default
+behaviour of read_xlsx that is called under the hood." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -53,7 +60,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -109,54 +116,75 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Read Excel Sheets into List of Character Matrices</h1>
+    <small class="dont-index">Source: <a href='https://github.com/KWB-R/kwb.readxl/blob/master/R/get_raw_text_from_xlsx.R'><code>R/get_raw_text_from_xlsx.R</code></a></small>
+    <div class="hidden name"><code>get_raw_text_from_xlsx.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>This function reads all (given) sheets of one Excel file into a list of
+character matrices. The idea of this function is to return the content of the
+Excel sheets as pure raw text information. No type conversion is performed.
+Empty rows at the beginning are not skipped which would be the default
+behaviour of <code><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></code> that is called under the hood.</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="export_table_metadata.html">export_table_metadata()</a></code> </p>
-        </td>
-        <td><p>Export Table Metadata</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_combined_regions.html">get_combined_regions()</a></code> </p>
-        </td>
-        <td><p>Get Regions of Combined Cells</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_raw_text_from_xlsx.html">get_raw_text_from_xlsx()</a></code> </p>
-        </td>
-        <td><p>Read Excel Sheets into List of Character Matrices</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>get_raw_text_from_xlsx</span>(<span class='no'>file</span>, <span class='kw'>sheets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dbg</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>full path to Excel file</p></td>
+    </tr>
+    <tr>
+      <th>sheets</th>
+      <td><p>name(s) of sheet(s) to be read, in a vector of character. If
+<code>NULL</code>, all sheets are read.</p></td>
+    </tr>
+    <tr>
+      <th>dbg</th>
+      <td><p>if <code>TRUE</code>, debug messages are shown</p></td>
+    </tr>
     </table>
-  </div>
+    
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Path to example file</span>
+<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"example.xlsx"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"kwb.readxl"</span>)
+
+<span class='co'># Read all sheets</span>
+<span class='no'>sheet_text</span> <span class='kw'>&lt;-</span> <span class='fu'>get_raw_text_from_xlsx</span>(<span class='no'>file</span>)</div><div class='output co'>#&gt; 
+#&gt;   File: 'example.xlsx'
+#&gt; Folder: '/home/travis/build/KWB-R/kwb.readxl/inst/extdata'
+#&gt; Reading sheet 'Baseline' as raw text ... </div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; `..1`</span>
+#&gt; <span class='message'>* `` -&gt; `..2`</span>
+#&gt; <span class='message'>* `` -&gt; `..3`</span>
+#&gt; <span class='message'>* `` -&gt; `..4`</span>
+#&gt; <span class='message'>* `` -&gt; `..5`</span>
+#&gt; <span class='message'>* … and 8 more</span></div><div class='output co'>#&gt; ok.
+#&gt; Reading sheet 'HRUA' as raw text ... </div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; `..1`</span>
+#&gt; <span class='message'>* `` -&gt; `..2`</span>
+#&gt; <span class='message'>* `` -&gt; `..3`</span>
+#&gt; <span class='message'>* `` -&gt; `..4`</span>
+#&gt; <span class='message'>* `` -&gt; `..5`</span>
+#&gt; <span class='message'>* … and 8 more</span></div><div class='output co'>#&gt; ok.</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
