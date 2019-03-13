@@ -49,29 +49,6 @@ get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE)
   }
 }
 
-# debug_file -------------------------------------------------------------------
-debug_file <- function(dbg, file)
-{
-  if (dbg) {
-    
-    cat_green_bold_0(sprintf("\n  File: '%s'\n", basename(file)))
-
-    cat(sprintf("Folder: '%s'\n", dirname(file)))
-  }
-}
-
-# debug_formatted --------------------------------------------------------------
-debug_formatted <- function(dbg, fmt, ...)
-{
-  kwb.utils::catIf(dbg, sprintf(fmt, ...))
-}
-
-# debug_ok ---------------------------------------------------------------------
-debug_ok <- function(dbg)
-{
-  kwb.utils::catIf(dbg, "ok.\n")
-}
-
 # to_sheet_table ---------------------------------------------------------------
 to_sheet_table <- function(sheets)
 {
