@@ -41,8 +41,8 @@
 <meta property="og:description" content="This function reads all (given) sheets of one Excel file into a list of
 character matrices. The idea of this function is to return the content of the
 Excel sheets as pure raw text information. No type conversion is performed.
-Empty rows at the beginning are not skipped which would be the default
-behaviour of read_xlsx that is called under the hood." />
+Empty rows at the beginning are not skipped which is the default behaviour of
+read_xlsx that is called under the hood." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,8 +128,8 @@ behaviour of read_xlsx that is called under the hood." />
     <p>This function reads all (given) sheets of one Excel file into a list of
 character matrices. The idea of this function is to return the content of the
 Excel sheets as pure raw text information. No type conversion is performed.
-Empty rows at the beginning are not skipped which would be the default
-behaviour of <code><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></code> that is called under the hood.</p>
+Empty rows at the beginning are not skipped which is the default behaviour of
+<code><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_xlsx</a></code> that is called under the hood.</p>
     
     </div>
 
@@ -159,7 +159,7 @@ behaviour of <code><a href='https://readxl.tidyverse.org/reference/read_excel.ht
 <span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"example.xlsx"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"kwb.readxl"</span>)
 
 <span class='co'># Read all sheets</span>
-<span class='no'>sheet_text</span> <span class='kw'>&lt;-</span> <span class='fu'>get_raw_text_from_xlsx</span>(<span class='no'>file</span>)</div><div class='output co'>#&gt; 
+<span class='no'>sheet_text</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>kwb.readxl</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/kwb.readxl/topics/get_raw_text_from_xlsx'>get_raw_text_from_xlsx</a></span>(<span class='no'>file</span>)</div><div class='output co'>#&gt; 
 #&gt;   File: 'example.xlsx'
 #&gt; Folder: '/home/travis/build/KWB-R/kwb.readxl/inst/extdata'
 #&gt; Reading sheet 'Baseline' as raw text ... </div><div class='output co'>#&gt; <span class='message'>New names:</span>
@@ -175,7 +175,23 @@ behaviour of <code><a href='https://readxl.tidyverse.org/reference/read_excel.ht
 #&gt; <span class='message'>* `` -&gt; `..3`</span>
 #&gt; <span class='message'>* `` -&gt; `..4`</span>
 #&gt; <span class='message'>* `` -&gt; `..5`</span>
-#&gt; <span class='message'>* … and 8 more</span></div><div class='output co'>#&gt; ok.</div></pre>
+#&gt; <span class='message'>* … and 8 more</span></div><div class='output co'>#&gt; ok.</div><div class='input'>
+<span class='co'># Have a look at the first rows of the first sheet</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>sheet_text</span>$<span class='no'>sheet_01</span>)</div><div class='output co'>#&gt;      col_01 col_02                 col_03                  col_04              
+#&gt; [1,] NA     NA                     NA                      NA                  
+#&gt; [2,] NA     "WP 4: data for LCA"   NA                      NA                  
+#&gt; [3,] NA     "Case Study:"          "WWTP Moon"             NA                  
+#&gt; [4,] NA     "Scenario"             "Status quo (baseline)" NA                  
+#&gt; [5,] NA     NA                     NA                      NA                  
+#&gt; [6,] "T"    "Flows for water line" NA                      "ANNUAL MEAN VALUES"
+#&gt;      col_05 col_06 col_07 col_08 col_09 col_0a col_0b col_0c col_0d
+#&gt; [1,] NA     NA     NA     NA     NA     NA     NA     NA     NA    
+#&gt; [2,] NA     NA     NA     NA     NA     NA     NA     NA     NA    
+#&gt; [3,] NA     NA     NA     NA     NA     NA     NA     NA     NA    
+#&gt; [4,] NA     NA     NA     NA     NA     NA     NA     NA     NA    
+#&gt; [5,] NA     NA     NA     NA     NA     NA     NA     NA     NA    
+#&gt; [6,] NA     NA     NA     NA     NA     NA     NA     NA     NA    </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
