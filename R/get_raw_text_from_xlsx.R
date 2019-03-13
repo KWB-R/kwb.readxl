@@ -3,8 +3,11 @@ get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE)
 {
   stopifnot(is.character(file), length(file) == 1)
   
-  # If no sheet name is given, call this function for all sheets in the file
+  if (! is.null(sheet)) {
+    stopifnot(is.character(sheet), length(sheet) == 1)    
+  }
   
+  # If no sheet name is given, call this function for all sheets in the file
   if (is.null(sheet)) {
 
     # Print the file name and file path to the console
@@ -17,8 +20,11 @@ get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE)
     result <- lapply(sheets, get_raw_text_from_xlsx, file = file)
 
     # Create sheet metadata
-    sheet_table <- to_sheet_table(sheets)
-
+    sheet_table <- kwb.utils::noFactorDataFrame(
+      sheet_id = kwb.utils::createIdAlong(sheets),
+      sheet_name = sheets
+    )
+    
     # Name the list entries according to the sheet ids
     names(result) <- kwb.utils::selectColumns(sheet_table, "sheet_id")
 
@@ -26,8 +32,6 @@ get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE)
     structure(result, sheet_info = sheet_table)
     
   } else {
-    
-    stopifnot(is.character(sheet), length(sheet) == 1)
 
     # Explicitly select all rows starting from the first row. Otherwise empty
     # rows at the beginning are automatically skipped. I want to keep everything
@@ -47,13 +51,4 @@ get_raw_text_from_xlsx <- function(file, sheet = NULL, dbg = TRUE)
     
     structure(result, file = file, sheet = sheet)
   }
-}
-
-# to_sheet_table ---------------------------------------------------------------
-to_sheet_table <- function(sheets)
-{
-  kwb.utils::noFactorDataFrame(
-    sheet_id = kwb.utils::createIdAlong(sheets),
-    sheet_name = sheets
-  )
 }
