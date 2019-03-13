@@ -4,8 +4,8 @@
 #' This function reads all (given) sheets of one Excel file into a list of
 #' character matrices. The idea of this function is to return the content of the
 #' Excel sheets as pure raw text information. No type conversion is performed.
-#' Empty rows at the beginning are not skipped which would be the default
-#' behaviour of \code{\link[readxl]{read_xlsx}} that is called under the hood.
+#' Empty rows at the beginning are not skipped which is the default behaviour of
+#' \code{\link[readxl]{read_xlsx}} that is called under the hood.
 #' 
 #' @param file full path to Excel file
 #' @param sheets name(s) of sheet(s) to be read, in a vector of character. If
@@ -23,7 +23,11 @@
 #' file <- system.file("extdata", "example.xlsx", package = "kwb.readxl")
 #' 
 #' # Read all sheets
-#' sheet_text <- get_raw_text_from_xlsx(file)
+#' sheet_text <- kwb.readxl::get_raw_text_from_xlsx(file)
+#' 
+#' # Have a look at the first rows of the first sheet
+#' head(sheet_text$sheet_01)
+#' 
 get_raw_text_from_xlsx <- function(file, sheets = NULL, dbg = TRUE)
 {
   stopifnot(is.character(file), length(file) == 1)
@@ -77,5 +81,7 @@ read_sheet_as_text <- function(file, sheet, dbg = TRUE)
   
   mode(result) <- "character"
   
+  colnames(result) <- kwb.utils::createIdAlong(seq_len(ncol(result)), "col")
+    
   structure(result, file = file, sheet = sheet)
 }

@@ -18,13 +18,17 @@ get_raw_text_from_xlsx(file, sheets = NULL, dbg = TRUE)
 This function reads all (given) sheets of one Excel file into a list of
 character matrices. The idea of this function is to return the content of the
 Excel sheets as pure raw text information. No type conversion is performed.
-Empty rows at the beginning are not skipped which would be the default
-behaviour of \code{\link[readxl]{read_xlsx}} that is called under the hood.
+Empty rows at the beginning are not skipped which is the default behaviour of
+\code{\link[readxl]{read_xlsx}} that is called under the hood.
 }
 \examples{
 # Path to example file
 file <- system.file("extdata", "example.xlsx", package = "kwb.readxl")
 
 # Read all sheets
-sheet_text <- get_raw_text_from_xlsx(file)
+sheet_text <- kwb.readxl::get_raw_text_from_xlsx(file)
+
+# Have a look at the first rows of the first sheet
+head(sheet_text$sheet_01)
+
 }
