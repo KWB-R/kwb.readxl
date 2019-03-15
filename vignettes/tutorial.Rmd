@@ -38,9 +38,9 @@ column the values in the first few rows of the column are inspected and the type
 of the column is guessed. Then, all values in the column are tried to be
 converted to the guessed type. This leads to conversion errors, e.g. if the
 first few values look numeric but the column contains text values, such as
-`"<0.0001"` further down. In the returned data frame the text values are
-removed, i.e. set to `NA`. This package avoids these data losses as it keeps the
-original (text) information and lets the user decide what to do.
+`"<1000"` further down. In the returned data frame the text values are removed,
+i.e. set to `NA`. This package avoids these data losses as it keeps the original
+(text) information and lets the user decide what to do.
 
 ## Read sheet with readxl
 
@@ -74,26 +74,26 @@ Now let's read the same sheet with `get_raw_text_from_xlsx()` from this package:
 
 ```{r}
 # Read the sheet into a list of character matrices
-data_raw <- kwb.readxl::get_raw_text_from_xlsx(file, sheets = "two_empty_rows")
+sheets <- kwb.readxl::get_raw_text_from_xlsx(file, sheets = "two_empty_rows")
 
 # Show the first rows of the first matrix
-head(data_raw$sheet_01)
+head(sheets$sheet_01)
 
 # Show the last rows of the first matrix
-tail(data_raw$sheet_01)
+tail(sheets$sheet_01)
 ```
 
-The first empty columns are kept so that the row number in the returned matrix
+The first two empty rows are kept so that the row number in the returned matrix
 corresponds to the row number in the Excel file. This is helpful if we want to
 warn the user about possible problems, such as the non-numeric value in row
 1004:
 
 ```{r}
-# Store the text matrix in x
-x <- data_raw$sheet_01
+# Store the text matrix in sheet
+sheet <- data_raw$sheet_01
 
 # Get the number of the row containing a non-numeric value in column 2 
-invalid_row <- max(which(is.na(as.numeric(x[, 2]))))
+invalid_row <- max(which(is.na(as.numeric(sheet[, 2]))))
 
 # Give a message to the user
 cat("Dear user, please have a look at row", invalid_row, "of the sheet")
