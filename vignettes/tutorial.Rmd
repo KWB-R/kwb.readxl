@@ -22,10 +22,10 @@ to the default behaviour of readxl the functions in this package read the raw
 text information that are contained in the sheets. No type conversions are
 performed and all values keep their original position. For example, a value in
 cell A3 is returned in `sheet[3, 1]` with `sheet` being the result matrix
-returned when reading one Excel sheet. By default, the `read_excel()` function
-of the readxl package returns this value in the first row of the returned data
-frame, given that the first two rows are empty. This may be useful in some cases
-but for validation purposes I prefer to keep the original positions.
+returned when reading one Excel sheet. By default, `readxl::read_excel()`
+returns this value in the first row of the returned data frame, given that the
+first two rows are empty. This may be useful in some cases but for validation
+purposes I prefer to keep the original positions.
 
 ## Reading Table Data from a Spreadsheet Program
 
@@ -38,15 +38,14 @@ column the values in the first few rows of the column are inspected and the type
 of the column is guessed. Then, all values in the column are tried to be
 converted to the guessed type. This leads to conversion errors, e.g. if the
 first few values look numeric but the column contains text values, such as
-`"<0.0001"` further down. In the returned data frame the text value are removed,
-i.e. set to `NA`. This package avoids these data losses as it keeps the original
-(text) information and lets the user decide what to do.
+`"<0.0001"` further down. In the returned data frame the text values are
+removed, i.e. set to `NA`. This package avoids these data losses as it keeps the
+original (text) information and lets the user decide what to do.
 
-## Read example file with readxl
+## Read sheet with readxl
 
 Let's check this behaviour out by reading a sheet from an example Excel file.
-The top and bottom part, respectively, of the "table" contained in the sheet 
-looks as follows:
+The top and bottom parts of the "table" contained in the sheet look as follows:
 
 [![table top](images/example_2_top.png)]()
 [![table top](images/example_2_bottom.png)]()
@@ -69,7 +68,7 @@ As described above, the two empty rows on top were skipped and the second
 column was assumed to be of numeric type even though it contains a text value
 in row 1004 (see image above).
 
-## Read example file with kwb.readxl
+## Read sheet with kwb.readxl
 
 Now let's read the same sheet with `get_raw_text_from_xlsx()` from this package:
 
