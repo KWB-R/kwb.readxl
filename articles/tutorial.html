@@ -104,7 +104,7 @@
 <div id="reading-table-data-from-a-spreadsheet-program" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reading-table-data-from-a-spreadsheet-program" class="anchor"></a>Reading Table Data from a Spreadsheet Program</h2>
-<p>MS Excel is a spreadsheet program. It does not really know where a table starts and where it ends and it does not clearly assign a type to a column. Instead, each cell can have its own type so that there can be cells of different types in one and the same column. However, functions such as <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl::read_excel()</a></code> try to communicate with Excel as if it was a database management system. For each column the values in the first few rows of the column are inspected and the type of the column is guessed. Then, all values in the column are tried to be converted to the guessed type. This leads to conversion errors, e.g. if the first few values look numeric but the column contains text values, such as <code>"&lt;0.0001"</code> further down. In the returned data frame the text values are removed, i.e. set to <code>NA</code>. This package avoids these data losses as it keeps the original (text) information and lets the user decide what to do.</p>
+<p>MS Excel is a spreadsheet program. It does not really know where a table starts and where it ends and it does not clearly assign a type to a column. Instead, each cell can have its own type so that there can be cells of different types in one and the same column. However, functions such as <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl::read_excel()</a></code> try to communicate with Excel as if it was a database management system. For each column the values in the first few rows of the column are inspected and the type of the column is guessed. Then, all values in the column are tried to be converted to the guessed type. This leads to conversion errors, e.g. if the first few values look numeric but the column contains text values, such as <code>"&lt;1000"</code> further down. In the returned data frame the text values are removed, i.e. set to <code>NA</code>. This package avoids these data losses as it keeps the original (text) information and lets the user decide what to do.</p>
 </div>
 <div id="read-sheet-with-readxl" class="section level2">
 <h2 class="hasAnchor">
@@ -138,7 +138,7 @@
 <a href="#read-sheet-with-kwb-readxl" class="anchor"></a>Read sheet with kwb.readxl</h2>
 <p>Now let’s read the same sheet with <code><a href="../reference/get_raw_text_from_xlsx.html">get_raw_text_from_xlsx()</a></code> from this package:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Read the sheet into a list of character matrices</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">data_raw &lt;-<span class="st"> </span>kwb.readxl<span class="op">::</span><span class="kw">get_raw_text_from_xlsx</span>(file, <span class="dt">sheets =</span> <span class="st">"two_empty_rows"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">sheets &lt;-<span class="st"> </span>kwb.readxl<span class="op">::</span><span class="kw">get_raw_text_from_xlsx</span>(file, <span class="dt">sheets =</span> <span class="st">"two_empty_rows"</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   File: 'example_2.xlsx'</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; Folder: '/home/travis/R/Library/kwb.readxl/extdata'</span></a>
@@ -149,7 +149,7 @@
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; ok.</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co"># Show the first rows of the first matrix</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(data_raw<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;      col_01 col_02 </span></a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; [1,] NA     NA     </span></a>
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; [2,] NA     NA     </span></a>
@@ -159,7 +159,7 @@
 <a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; [6,] "6"    "3"</span></a>
 <a class="sourceLine" id="cb2-21" data-line-number="21"></a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co"># Show the last rows of the first matrix</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(data_raw<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
 <a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;         col_01 col_02 </span></a>
 <a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;  [999,] "999"  "996"  </span></a>
 <a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; [1000,] "1000" "997"  </span></a>
@@ -167,13 +167,13 @@
 <a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; [1002,] "1002" "999"  </span></a>
 <a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt; [1003,] "1003" "1000" </span></a>
 <a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; [1004,] "1004" "&gt;1000"</span></a></code></pre></div>
-<p>The first empty columns are kept so that the row number in the returned matrix corresponds to the row number in the Excel file. This is helpful if we want to warn the user about possible problems, such as the non-numeric value in row 1004:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Store the text matrix in x</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">x &lt;-<span class="st"> </span>data_raw<span class="op">$</span>sheet_<span class="dv">01</span></a>
+<p>The first two empty rows are kept so that the row number in the returned matrix corresponds to the row number in the Excel file. This is helpful if we want to warn the user about possible problems, such as the non-numeric value in row 1004:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Store the text matrix in sheet</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">sheet &lt;-<span class="st"> </span>sheets<span class="op">$</span>sheet_<span class="dv">01</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Get the number of the row containing a non-numeric value in column 2 </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">invalid_row &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric">as.numeric</a></span>(x[, <span class="dv">2</span>]))))</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; Warning in which(is.na(as.numeric(x[, 2]))): NAs introduced by coercion</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">invalid_row &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric">as.numeric</a></span>(sheet[, <span class="dv">2</span>]))))</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; Warning in which(is.na(as.numeric(sheet[, 2]))): NAs introduced by coercion</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># Give a message to the user</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"Dear user, please have a look at row"</span>, invalid_row, <span class="st">"of the sheet"</span>)</a>
