@@ -25,17 +25,15 @@ Imports:
     cellranger,
     crayon,
     kwb.event,
-    kwb.fakin,
-    kwb.file,
     kwb.utils,
     readxl,
     stringr
 Suggests:
     covr,
+    kwb.file,
     testthat
 Remotes: 
     github::kwb-r/kwb.event,
-    github::kwb-r/kwb.fakin,
     github::kwb-r/kwb.file,
     github::kwb-r/kwb.utils
 ByteCompile: true

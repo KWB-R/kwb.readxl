@@ -189,23 +189,6 @@ guess_header_matrix <- function(x, n_max = 10) {
   }))
 }
 
-# print_logical_matrix ---------------------------------------------------------
-print_logical_matrix <- function(x, invert = FALSE) {
-  stopifnot(is.matrix(x))
-
-  y <- matrix(" ", nrow = nrow(x), ncol = ncol(x))
-
-  x <- as.logical(x)
-
-  if (invert) {
-    x <- !x
-  }
-
-  y[x] <- "x"
-
-  kwb.utils::catLines(kwb.utils::pasteColumns(as.data.frame(y), sep = "|"))
-}
-
 # text_matrix_to_numeric_matrix ------------------------------------------------
 text_matrix_to_numeric_matrix <- function(x) {
   print(x)
