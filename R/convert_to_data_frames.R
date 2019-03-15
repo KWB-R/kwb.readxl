@@ -1,7 +1,10 @@
-# convert_text_matrix_list_to_data_frames --------------------------------------
-convert_text_matrix_list_to_data_frames <- function(
-                                                    all_tables, column_info, dbg = TRUE) {
+# text_matrices_to_data_frames -------------------------------------------------
+text_matrices_to_data_frames <- function(
+  all_tables, column_info, dbg = TRUE
+)
+{
   for (file_id in names(all_tables)) {
+    
     print(file_id)
 
     # file_id <- names(all_tables)[1]
@@ -15,6 +18,7 @@ convert_text_matrix_list_to_data_frames <- function(
     table_ids <- kwb.utils::toNamedList(names(tables))
 
     all_tables[[file_id]] <- lapply(table_ids, function(table_id) {
+      
       print(table_id)
 
       # table_id <- names(tables)[1]
@@ -51,6 +55,7 @@ convert_text_matrix_list_to_data_frames <- function(
         invalid <- is.na(num_values) & !is.na(txt_values)
 
         if (any(invalid)) {
+          
           debug_formatted(
             dbg, paste0(
               "Cannot convert column '%s' to numeric.\n",
@@ -61,7 +66,9 @@ convert_text_matrix_list_to_data_frames <- function(
           )
 
           txt_values
+          
         } else {
+          
           num_values
         }
       })
