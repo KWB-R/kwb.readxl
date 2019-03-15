@@ -13,3 +13,4 @@ get_combined_regions(content)
 Get regions of combined cells, i.e. cells that are not empty and that
 are neighbours to each other
 }
+\keyword{internal}

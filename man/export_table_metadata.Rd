@@ -14,3 +14,4 @@ export_table_metadata(table_info, dbg = TRUE)
 \description{
 Export Table Metadata to CSV file
 }
+\keyword{internal}

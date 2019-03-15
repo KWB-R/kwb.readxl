@@ -44,6 +44,9 @@ compact_column_info <- function(column_info)
 #'
 #' @param table_info data frame containing metadata about the tables. 
 #' @param dbg logical. If \code{TRUE} (default), debug messages are shown.
+#' 
+#' @keywords internal
+#' 
 export_table_metadata <- function(table_info, dbg = TRUE) {
   stopifnot(is.data.frame(table_info))
 

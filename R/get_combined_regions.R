@@ -7,6 +7,8 @@
 #' 
 #' @param content matrix of character
 #' 
+#' @keywords internal
+#' 
 get_combined_regions <- function(content)
 {
   stopifnot(is.matrix(content), is.character(content))
