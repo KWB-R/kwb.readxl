@@ -61,15 +61,41 @@ file <- system.file("extdata/example_2.xlsx", package = "kwb.readxl")
 # Read the first sheet with readxl::read_excel
 data <- readxl::read_excel(file)
 
-# Show the first rows: The first empty rows were skipped
+# The first empty rows were skipped and both columns are numeric (double)
 head(data)
-
-# Show the structure: The value column is numeric
-str(data)
 ```
 
-As described earlier, the first two empty rows were skipped and the second
+As described above, the two empty rows on top were skipped and the second
 column was assumed to be of numeric type even though it contains a text value
 in row 1004 (see image above).
 
 ## Read example file with kwb.readxl
+
+Now let's read the same sheet with `get_raw_text_from_xlsx()` from this package:
+
+```{r}
+# Read the sheet into a list of character matrices
+data_raw <- kwb.readxl::get_raw_text_from_xlsx(file, sheets = "two_empty_rows")
+
+# Show the first rows of the first matrix
+head(data_raw$sheet_01)
+
+# Show the last rows of the first matrix
+tail(data_raw$sheet_01)
+```
+
+The first empty columns are kept so that the row number in the returned matrix
+corresponds to the row number in the Excel file. This is helpful if we want to
+warn the user about possible problems, such as the non-numeric value in row
+1004:
+
+```{r}
+# Store the text matrix in x
+x <- data_raw$sheet_01
+
+# Get the number of the row containing a non-numeric value in column 2 
+invalid_row <- max(which(is.na(as.numeric(x[, 2]))))
+
+# Give a message to the user
+cat("Dear user, please have a look at row", invalid_row, "of the sheet")
+```
