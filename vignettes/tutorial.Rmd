@@ -90,7 +90,7 @@ warn the user about possible problems, such as the non-numeric value in row
 
 ```{r}
 # Store the text matrix in sheet
-sheet <- data_raw$sheet_01
+sheet <- sheets$sheet_01
 
 # Get the number of the row containing a non-numeric value in column 2 
 invalid_row <- max(which(is.na(as.numeric(sheet[, 2]))))
