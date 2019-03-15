@@ -20,33 +20,39 @@ This package provides functions to read data from Microsoft Excel files. It uses
 the package [readxl](https://readxl.tidyverse.org/) under the hood. In contrast
 to the default behaviour of readxl the functions in this package read the raw
 text information that are contained in the sheets. No type conversions are
-performed and all values will keep their original position in the cell grid. 
-For example, a value in cell A3 will be returned in `m[3, 1]` with `m` being the
-result matrix returned for one Excel sheet. By default, the `read_excel()` 
-function of the readxl package would return this value in the first row of the
-reuturned data frame, given that the first rows are empty. This may be useful
-in some cases but for validation purposes I prefer to keep the original 
-positions.
+performed and all values keep their original position. For example, a value in
+cell A3 is returned in `sheet[3, 1]` with `sheet` being the result matrix
+returned when reading one Excel sheet. By default, the `read_excel()` function
+of the readxl package returns this value in the first row of the returned data
+frame, given that the first two rows are empty. This may be useful in some cases
+but for validation purposes I prefer to keep the original positions.
 
 ## Reading Table Data from a Spreadsheet Program
 
-As MS Excel is a spreadsheet program, it does not really know where a table 
-starts and where it ends and it does not clearly assign a type to a column. 
-Instead, each cell can have its own type so that there can be cells of different 
-types in one and the same column. However, functions such as 
-`readxl::read_excel` try to communicate with Excel as if it was a database
-management system. For each column the values in the first few rows of the 
-column are inspected and the type of the column is guessed. Then, all values
-in the column are tried to be converted to the guessed type. This leads to 
-conversion errors, e.g. if the first few values look numeric but the column
-contains text values, such as `"< 0.0001"` further down. In the returned data 
-frame the text value will be removed, ie. set to `NA`. This package avoids these
-data losses as it keeps the original (text) information and lets the user decide
-what to do.
+MS Excel is a spreadsheet program. It does not really know where a table starts
+and where it ends and it does not clearly assign a type to a column. Instead,
+each cell can have its own type so that there can be cells of different types in
+one and the same column. However, functions such as `readxl::read_excel()` try
+to communicate with Excel as if it was a database management system. For each
+column the values in the first few rows of the column are inspected and the type
+of the column is guessed. Then, all values in the column are tried to be
+converted to the guessed type. This leads to conversion errors, e.g. if the
+first few values look numeric but the column contains text values, such as
+`"<0.0001"` further down. In the returned data frame the text value are removed,
+i.e. set to `NA`. This package avoids these data losses as it keeps the original
+(text) information and lets the user decide what to do.
 
 ## Read example file with readxl
 
-Let's check this out by reading the content from an example Excel file.
+Let's check this behaviour out by reading a sheet from an example Excel file.
+The top and bottom part, respectively, of the "table" contained in the sheet 
+looks as follows:
+
+[![table top](images/example_2_top.png)]()
+[![table top](images/example_2_bottom.png)]()
+
+We start by reading this sheet with the `read_excel()` function from the readxl
+package:
 
 ```{r}
 # Path to example Excel file
@@ -62,7 +68,8 @@ head(data)
 str(data)
 ```
 
-[![table top](images/example_2_top.png)]()
-[![table top](images/example_2_bottom.png)]()
+As described earlier, the first two empty rows were skipped and the second
+column was assumed to be of numeric type even though it contains a text value
+in row 1004 (see image above).
 
 ## Read example file with kwb.readxl
