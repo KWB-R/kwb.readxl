@@ -1,7 +1,5 @@
 # text_matrices_to_data_frames -------------------------------------------------
-text_matrices_to_data_frames <- function(
-  all_tables, column_info, dbg = TRUE
-)
+text_matrices_to_data_frames <- function(all_tables, column_info, dbg = TRUE)
 {
   for (file_id in names(all_tables)) {
     
@@ -43,34 +41,13 @@ text_matrices_to_data_frames <- function(
 
       colnames(text_matrix) <- col_names
 
-      result <- as.data.frame(text_matrix, stringsAsFactors = FALSE)
+      result <- kwb.utils::asNoFactorDataFrame(text_matrix)
 
       indices_numeric <- which(this_column_info$column_type == "N")
 
       result[indices_numeric] <- lapply(indices_numeric, function(i) {
-        txt_values <- result[[i]]
-
-        num_values <- suppressWarnings(as.numeric(txt_values))
-
-        invalid <- is.na(num_values) & !is.na(txt_values)
-
-        if (any(invalid)) {
-          
-          debug_formatted(
-            dbg, paste0(
-              "Cannot convert column '%s' to numeric.\n",
-              "(First) non-numeric text values: %s\n"
-            ),
-            col_names[i], 
-            kwb.utils::stringList(utils::head(txt_values[invalid]))
-          )
-
-          txt_values
-          
-        } else {
-          
-          num_values
-        }
+        
+        text_to_numeric(txt_values = result[[i]], column = col_names[i], dbg)
       })
 
       result
@@ -78,4 +55,30 @@ text_matrices_to_data_frames <- function(
   }
 
   all_tables
+}
+
+# text_to_numeric --------------------------------------------------------------
+text_to_numeric <- function(txt_values, column = "name?", dbg = TRUE)
+{
+  num_values <- suppressWarnings(as.numeric(txt_values))
+  
+  invalid <- is.na(num_values) & ! is.na(txt_values)
+  
+  if (any(invalid)) {
+    
+    debug_formatted(
+      dbg, paste0(
+        "Cannot convert column '%s' to numeric.\n",
+        "(First) non-numeric text values: %s\n"
+      ),
+      column, 
+      kwb.utils::stringList(utils::head(txt_values[invalid]))
+    )
+    
+    txt_values
+    
+  } else {
+    
+    num_values
+  }
 }
