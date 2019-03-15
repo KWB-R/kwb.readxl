@@ -61,24 +61,23 @@ text_matrices_to_data_frames <- function(all_tables, column_info, dbg = TRUE)
 text_to_numeric <- function(txt_values, column = "name?", dbg = TRUE)
 {
   num_values <- suppressWarnings(as.numeric(txt_values))
+
+  # The conversion is valid if the text was NA or if the numeric is not NA  
+  valid <- is.na(txt_values) | ! is.na(num_values)
+
+  # Return numeric values if there were no errors
+  if (all(valid)) {
+    return(num_values)
+  }    
+    
+  debug_formatted(
+    dbg, paste0(
+      "Cannot convert column '%s' to numeric.\n",
+      "(First) non-numeric text values: %s\n"
+    ),
+    column, 
+    kwb.utils::stringList(utils::head(txt_values[! valid]))
+  )
   
-  invalid <- is.na(num_values) & ! is.na(txt_values)
-  
-  if (any(invalid)) {
-    
-    debug_formatted(
-      dbg, paste0(
-        "Cannot convert column '%s' to numeric.\n",
-        "(First) non-numeric text values: %s\n"
-      ),
-      column, 
-      kwb.utils::stringList(utils::head(txt_values[invalid]))
-    )
-    
-    txt_values
-    
-  } else {
-    
-    num_values
-  }
+  txt_values
 }
