@@ -71,14 +71,15 @@ read_sheet_as_text <- function(file, sheet, dbg = TRUE)
   # so that the original row numbers can be used as a reference
   range <- cellranger::cell_rows(c(1, NA))
   
-  debug_formatted(dbg, "Reading sheet '%s' as raw text ... ", sheet)
-  
-  result <- as.matrix(readxl::read_xlsx(
-    file, sheet, range = range, col_names = FALSE, col_types = "text"
-  ))
-  
-  debug_ok(dbg)
-  
+  result <- kwb.utils::catAndRun(
+    messageText = sprintf("  Reading sheet '%s' as raw text", sheet),
+    dbg = dbg, newLine = 3, expr = {
+      as.matrix(suppressMessages(readxl::read_xlsx(
+        file, sheet, range = range, col_names = FALSE, col_types = "text"
+      )))      
+    }
+  )
+
   mode(result) <- "character"
   
   colnames(result) <- kwb.utils::createIdAlong(seq_len(ncol(result)), "col")
