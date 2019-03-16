@@ -38,19 +38,19 @@ column the values in the first few rows of the column are inspected and the type
 of the column is guessed. Then, all values in the column are tried to be
 converted to the guessed type. This leads to conversion errors, e.g. if the
 first few values look numeric but the column contains text values, such as
-`"<1000"` further down. In the returned data frame the text values are removed,
+`">1000"` further down. In the returned data frame the text values are removed,
 i.e. set to `NA`. This package avoids these data losses as it keeps the original
 (text) information and lets the user decide what to do.
 
 ## Read sheet with readxl
 
-Let's check this behaviour out by reading a sheet from an example Excel file.
-The top and bottom parts of the "table" contained in the sheet look as follows:
+We demonstrate this behaviour by reading a sheet from an example Excel file. The
+top and bottom parts of the "table" contained in the sheet look as follows:
 
 [![table top](images/example_2_top.png)]()
 [![table top](images/example_2_bottom.png)]()
 
-We start by reading this sheet with the `read_excel()` function from the readxl
+We first read this sheet with the `read_excel()` function from the readxl 
 package:
 
 ```{r}
@@ -70,7 +70,7 @@ in row 1004 (see image above).
 
 ## Read sheet with kwb.readxl
 
-Now let's read the same sheet with `get_raw_text_from_xlsx()` from this package:
+We now read the same sheet with `get_raw_text_from_xlsx()` from this package:
 
 ```{r}
 # Read the sheet into a list of character matrices
