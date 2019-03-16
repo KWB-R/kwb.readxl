@@ -174,20 +174,10 @@ Empty rows at the beginning are not skipped which is the default behaviour of
 <span class='no'>sheet_text</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>kwb.readxl</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/kwb.readxl/topics/get_raw_text_from_xlsx'>get_raw_text_from_xlsx</a></span>(<span class='no'>file</span>)</div><div class='output co'>#&gt; 
 #&gt;   File: 'example.xlsx'
 #&gt; Folder: '/home/travis/build/KWB-R/kwb.readxl/inst/extdata'
-#&gt; Reading sheet 'Baseline' as raw text ... </div><div class='output co'>#&gt; <span class='message'>New names:</span>
-#&gt; <span class='message'>* `` -&gt; `..1`</span>
-#&gt; <span class='message'>* `` -&gt; `..2`</span>
-#&gt; <span class='message'>* `` -&gt; `..3`</span>
-#&gt; <span class='message'>* `` -&gt; `..4`</span>
-#&gt; <span class='message'>* `` -&gt; `..5`</span>
-#&gt; <span class='message'>* … and 8 more</span></div><div class='output co'>#&gt; ok.
-#&gt; Reading sheet 'HRUA' as raw text ... </div><div class='output co'>#&gt; <span class='message'>New names:</span>
-#&gt; <span class='message'>* `` -&gt; `..1`</span>
-#&gt; <span class='message'>* `` -&gt; `..2`</span>
-#&gt; <span class='message'>* `` -&gt; `..3`</span>
-#&gt; <span class='message'>* `` -&gt; `..4`</span>
-#&gt; <span class='message'>* `` -&gt; `..5`</span>
-#&gt; <span class='message'>* … and 8 more</span></div><div class='output co'>#&gt; ok.</div><div class='input'>
+#&gt;   Reading sheet 'Baseline' as raw text ... 
+#&gt; ok. (0.02s) 
+#&gt;   Reading sheet 'HRUA' as raw text ... 
+#&gt; ok. (0.02s) </div><div class='input'>
 <span class='co'># Have a look at the first rows of the first sheet</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>sheet_text</span>$<span class='no'>sheet_01</span>)</div><div class='output co'>#&gt;      col_01 col_02                 col_03                  col_04              
 #&gt; [1,] NA     NA                     NA                      NA                  

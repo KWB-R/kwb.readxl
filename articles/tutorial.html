@@ -91,7 +91,7 @@
       <h1>Read Raw Text Information from Excel Files</h1>
                         <h4 class="author">Hauke Sonnenberg</h4>
             
-            <h4 class="date">2019-03-15</h4>
+            <h4 class="date">2019-03-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/KWB-R/kwb.readxl/blob/master/vignettes/tutorial.Rmd"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
@@ -142,31 +142,28 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   File: 'example_2.xlsx'</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; Folder: '/home/travis/R/Library/kwb.readxl/extdata'</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; Reading sheet 'two_empty_rows' as raw text ...</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; New names:</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; * `` -&gt; `..1`</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; * `` -&gt; `..2`</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; ok.</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co"># Show the first rows of the first matrix</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;      col_01 col_02 </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; [1,] NA     NA     </span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; [2,] NA     NA     </span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; [3,] "Row"  "Value"</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; [4,] "4"    "1"    </span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; [5,] "5"    "2"    </span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; [6,] "6"    "3"</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co"># Show the last rows of the first matrix</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;         col_01 col_02 </span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;  [999,] "999"  "996"  </span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; [1000,] "1000" "997"  </span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; [1001,] "1001" "998"  </span></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; [1002,] "1002" "999"  </span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt; [1003,] "1003" "1000" </span></a>
-<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; [1004,] "1004" "&gt;1000"</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;   Reading sheet 'two_empty_rows' as raw text ... </span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ok. (0.02s)</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co"># Show the first rows of the first matrix</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;      col_01 col_02 </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; [1,] NA     NA     </span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; [2,] NA     NA     </span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; [3,] "Row"  "Value"</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; [4,] "4"    "1"    </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; [5,] "5"    "2"    </span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; [6,] "6"    "3"</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co"># Show the last rows of the first matrix</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;         col_01 col_02 </span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;  [999,] "999"  "996"  </span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; [1000,] "1000" "997"  </span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; [1001,] "1001" "998"  </span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; [1002,] "1002" "999"  </span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; [1003,] "1003" "1000" </span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; [1004,] "1004" "&gt;1000"</span></a></code></pre></div>
 <p>The first two empty rows are kept so that the row number in the returned matrix corresponds to the row number in the Excel file. This is helpful if we want to warn the user about possible problems, such as the non-numeric value in row 1004:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Store the text matrix in sheet</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">sheet &lt;-<span class="st"> </span>sheets<span class="op">$</span>sheet_<span class="dv">01</span></a>
