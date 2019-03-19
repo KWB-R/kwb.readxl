@@ -43,7 +43,7 @@ column, the values in the first few rows of the column are inspected and based
 on the found type the whole column is then converted accordingly. This may lead 
 to conversion errors, e.g. if the first few values look numeric but further 
 values cannot be interpreted as numeric, such as `">1000"`. In these cases the
-readxl functions return a data frame in whith the text values are removed, i.e.
+readxl functions return a data frame in which the text values are removed, i.e.
 set to `NA`. This package avoids these data losses as it keeps the original
 (text) information and lets the user decide what to do.
 
