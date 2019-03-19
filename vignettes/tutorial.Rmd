@@ -16,36 +16,41 @@ knitr::opts_chunk$set(
 )
 ```
 
-This package provides functions to read data from Microsoft Excel files. It uses
-the package [readxl](https://readxl.tidyverse.org/) under the hood. In contrast
-to the default behaviour of readxl the functions in this package read the raw
-text information that are contained in the sheets. No type conversions are
-performed and all values keep their original position. For example, a value in
-cell A3 is returned in `sheet[3, 1]` with `sheet` being the result matrix
-returned when reading one Excel sheet. By default, `readxl::read_excel()`
-returns this value in the first row of the returned data frame, given that the
-first two rows are empty. This may be useful in some cases but for validation
-purposes I prefer to keep the original positions.
+This package provides functions to read spreadsheet data from Microsoft Excel
+files. To achieve this, it uses functions from the package
+[readxl](https://readxl.tidyverse.org/). 
+
+In contrast to the default behaviour of the readxl functions, this package reads
+the raw text information from spreadsheets. No type conversions are performed.
+Being all of the same type (character) the text values are returned in a matrix
+and not in a data frame as it is the case for the readxl package.
+
+Also, when using this package, all values keep their original position. By
+default, the readxl-functions remove empty rows at the beginning of a sheet.
+This leads to row numbers in the returned data frame that do not correspond to 
+the original row numbers in the Excel sheet. For validation purposes, I prefer 
+that all values appear at the same positions in the returned matrix as they have 
+in the sheet. This is what this package does.
 
 ## Reading Table Data from a Spreadsheet Program
 
-MS Excel is a spreadsheet program. It does not really know where a table starts
+MS Excel is a spreadsheet program. It does not "know" where a table starts
 and where it ends and it does not clearly assign a type to a column. Instead,
 each cell can have its own type so that there can be cells of different types in
-one and the same column. However, functions such as `readxl::read_excel()` try
+the same column. However, functions such as `readxl::read_excel()` try
 to communicate with Excel as if it was a database management system. For each
-column the values in the first few rows of the column are inspected and the type
-of the column is guessed. Then, all values in the column are tried to be
-converted to the guessed type. This leads to conversion errors, e.g. if the
-first few values look numeric but the column contains text values, such as
-`">1000"` further down. In the returned data frame the text values are removed,
-i.e. set to `NA`. This package avoids these data losses as it keeps the original
-(text) information and lets the user decide what to do.
+column, the values in the first few rows of the column are inspected and based
+on the found type the whole column is then converted accordingly. This may lead 
+to conversion errors, e.g. if the first few values look numeric but further 
+contains text values, such as `">1000"`. In these cases the readxl functions 
+return a data frame in whith the text values are removed, i.e. set to `NA`. This 
+package avoids these data losses as it keeps the original (text) information and 
+lets the user decide what to do.
 
-## Read sheet with readxl
+## Read MS spreadsheet with readxl
 
 We demonstrate this behaviour by reading a sheet from an example Excel file. The
-top and bottom parts of the "table" contained in the sheet look as follows:
+top and bottom parts of the "table" look as follows:
 
 [![table top](images/example_2_top.png)]()
 [![table top](images/example_2_bottom.png)]()
@@ -64,13 +69,14 @@ data <- readxl::read_excel(file)
 head(data)
 ```
 
-As described above, the two empty rows on top were skipped and the second
-column was assumed to be of numeric type even though it contains a text value
-in row 1004 (see image above).
+As described above, the two empty rows on top were skipped. Also, column B was
+assumed to be numeric (double \<dbl\>) even though it contains a text value in row
+1004 (see image above).
 
 ## Read sheet with kwb.readxl
 
-We now read the same sheet with `get_raw_text_from_xlsx()` from this package:
+Now we read the same spreadsheet with `get_raw_text_from_xlsx()` from this 
+package:
 
 ```{r}
 # Read the sheet into a list of character matrices
@@ -85,7 +91,7 @@ tail(sheets$sheet_01)
 
 The first two empty rows are kept so that the row number in the returned matrix
 corresponds to the row number in the Excel file. This is helpful if we want to
-warn the user about possible problems, such as the non-numeric value in row
+warn the user about possible problems, such as the non-numeric value in row 
 1004:
 
 ```{r}
