@@ -91,7 +91,7 @@
       <h1>Read Raw Text Information from Excel Files</h1>
                         <h4 class="author">Hauke Sonnenberg</h4>
             
-            <h4 class="date">2019-03-16</h4>
+            <h4 class="date">2019-03-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/KWB-R/kwb.readxl/blob/master/vignettes/tutorial.Rmd"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
@@ -100,16 +100,18 @@
 
     
     
-<p>This package provides functions to read data from Microsoft Excel files. It uses the package <a href="https://readxl.tidyverse.org/">readxl</a> under the hood. In contrast to the default behaviour of readxl the functions in this package read the raw text information that are contained in the sheets. No type conversions are performed and all values keep their original position. For example, a value in cell A3 is returned in <code>sheet[3, 1]</code> with <code>sheet</code> being the result matrix returned when reading one Excel sheet. By default, <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl::read_excel()</a></code> returns this value in the first row of the returned data frame, given that the first two rows are empty. This may be useful in some cases but for validation purposes I prefer to keep the original positions.</p>
+<p>This package provides functions to read spreadsheet data from Microsoft Excel files. To achieve this, it uses functions from the package <a href="https://readxl.tidyverse.org/">readxl</a>.</p>
+<p>In contrast to the default behaviour of the readxl functions, this package reads the raw text information from spreadsheets. No type conversions are performed. Being all of the same type (character) the text values are returned in a matrix and not in a data frame as it is the case for the readxl package.</p>
+<p>Also, when using this package, all values keep their original position. By default, the readxl-functions remove empty rows at the beginning of a sheet. This leads to row numbers in the returned data frame that do not correspond to the original row numbers in the Excel sheet. For validation purposes, I prefer that all values appear at the same positions in the returned matrix as they have in the sheet. This is what this package does.</p>
 <div id="reading-table-data-from-a-spreadsheet-program" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reading-table-data-from-a-spreadsheet-program" class="anchor"></a>Reading Table Data from a Spreadsheet Program</h2>
-<p>MS Excel is a spreadsheet program. It does not really know where a table starts and where it ends and it does not clearly assign a type to a column. Instead, each cell can have its own type so that there can be cells of different types in one and the same column. However, functions such as <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl::read_excel()</a></code> try to communicate with Excel as if it was a database management system. For each column the values in the first few rows of the column are inspected and the type of the column is guessed. Then, all values in the column are tried to be converted to the guessed type. This leads to conversion errors, e.g. if the first few values look numeric but the column contains text values, such as <code>"&gt;1000"</code> further down. In the returned data frame the text values are removed, i.e. set to <code>NA</code>. This package avoids these data losses as it keeps the original (text) information and lets the user decide what to do.</p>
+<p>MS Excel is a spreadsheet program. It does not “know” where a table starts and where it ends and it does not clearly assign a type to a column. Instead, each cell can have its own type so that there can be cells of different types in the same column. However, functions such as <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl::read_excel()</a></code> try to communicate with Excel as if it was a database management system. For each column, the values in the first few rows of the column are inspected and based on the found type the whole column is then converted accordingly. This may lead to conversion errors, e.g. if the first few values look numeric but further values cannot be interpreted as numeric, such as <code>"&gt;1000"</code>. In these cases the readxl functions return a data frame in which the text values are removed, i.e. set to <code>NA</code>. This package avoids these data losses as it keeps the original (text) information and lets the user decide what to do.</p>
 </div>
-<div id="read-sheet-with-readxl" class="section level2">
+<div id="read-ms-spreadsheet-with-readxl" class="section level2">
 <h2 class="hasAnchor">
-<a href="#read-sheet-with-readxl" class="anchor"></a>Read sheet with readxl</h2>
-<p>We demonstrate this behaviour by reading a sheet from an example Excel file. The top and bottom parts of the “table” contained in the sheet look as follows:</p>
+<a href="#read-ms-spreadsheet-with-readxl" class="anchor"></a>Read MS spreadsheet with readxl</h2>
+<p>We demonstrate this behaviour by reading a sheet from an example Excel file. The top and bottom parts of the “table” look as follows:</p>
 <p><a href=""><img src="images/example_2_top.png" alt="table top"></a> <a href=""><img src="images/example_2_bottom.png" alt="table top"></a></p>
 <p>We first read this sheet with the <code>read_excel()</code> function from the readxl package:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Path to example Excel file</span></a>
@@ -131,12 +133,12 @@
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt; 4     7     4</span></a>
 <a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt; 5     8     5</span></a>
 <a class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt; 6     9     6</span></a></code></pre></div>
-<p>As described above, the two empty rows on top were skipped and the second column was assumed to be of numeric type even though it contains a text value in row 1004 (see image above).</p>
+<p>As described above, the two empty rows on top were skipped. Also, column B was assumed to be numeric (double &lt;dbl&gt;) even though it contains a text value in row 1004 (see image above).</p>
 </div>
 <div id="read-sheet-with-kwb-readxl" class="section level2">
 <h2 class="hasAnchor">
 <a href="#read-sheet-with-kwb-readxl" class="anchor"></a>Read sheet with kwb.readxl</h2>
-<p>We now read the same sheet with <code><a href="../reference/get_raw_text_from_xlsx.html">get_raw_text_from_xlsx()</a></code> from this package:</p>
+<p>Now we read the same spreadsheet with <code><a href="../reference/get_raw_text_from_xlsx.html">get_raw_text_from_xlsx()</a></code> from this package:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Read the sheet into a list of character matrices</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">sheets &lt;-<span class="st"> </span>kwb.readxl<span class="op">::</span><span class="kw">get_raw_text_from_xlsx</span>(file, <span class="dt">sheets =</span> <span class="st">"two_empty_rows"</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; </span></a>
@@ -184,7 +186,7 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#reading-table-data-from-a-spreadsheet-program">Reading Table Data from a Spreadsheet Program</a></li>
-      <li><a href="#read-sheet-with-readxl">Read sheet with readxl</a></li>
+      <li><a href="#read-ms-spreadsheet-with-readxl">Read MS spreadsheet with readxl</a></li>
       <li><a href="#read-sheet-with-kwb-readxl">Read sheet with kwb.readxl</a></li>
       </ul>
 </div>
