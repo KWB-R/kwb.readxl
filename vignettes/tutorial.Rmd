@@ -42,10 +42,10 @@ to communicate with Excel as if it was a database management system. For each
 column, the values in the first few rows of the column are inspected and based
 on the found type the whole column is then converted accordingly. This may lead 
 to conversion errors, e.g. if the first few values look numeric but further 
-contains text values, such as `">1000"`. In these cases the readxl functions 
-return a data frame in whith the text values are removed, i.e. set to `NA`. This 
-package avoids these data losses as it keeps the original (text) information and 
-lets the user decide what to do.
+values cannot be interpreted as numeric, such as `">1000"`. In these cases the
+readxl functions return a data frame in whith the text values are removed, i.e.
+set to `NA`. This package avoids these data losses as it keeps the original
+(text) information and lets the user decide what to do.
 
 ## Read MS spreadsheet with readxl
 
@@ -70,8 +70,8 @@ head(data)
 ```
 
 As described above, the two empty rows on top were skipped. Also, column B was
-assumed to be numeric (double \<dbl\>) even though it contains a text value in row
-1004 (see image above).
+assumed to be numeric (double \<dbl\>) even though it contains a text value in
+row 1004 (see image above).
 
 ## Read sheet with kwb.readxl
 
