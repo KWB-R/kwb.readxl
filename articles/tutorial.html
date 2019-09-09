@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Read Raw Text Information from Excel Files • kwb.readxl</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Read Raw Text Information from Excel Files">
@@ -40,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -66,12 +67,12 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/KWB-R/kwb.readxl">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right" role="search">
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
@@ -85,13 +86,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Read Raw Text Information from Excel Files</h1>
                         <h4 class="author">Hauke Sonnenberg</h4>
             
-            <h4 class="date">2019-03-19</h4>
+            <h4 class="date">2019-09-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/KWB-R/kwb.readxl/blob/master/vignettes/tutorial.Rmd"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
@@ -115,7 +117,7 @@
 <p><a href=""><img src="images/example_2_top.png" alt="table top"></a> <a href=""><img src="images/example_2_bottom.png" alt="table top"></a></p>
 <p>We first read this sheet with the <code>read_excel()</code> function from the readxl package:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Path to example Excel file</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata/example_2.xlsx"</span>, <span class="dt">package =</span> <span class="st">"kwb.readxl"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/example_2.xlsx"</span>, <span class="dt">package =</span> <span class="st">"kwb.readxl"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Read the first sheet with readxl::read_excel</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">data &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span>(file)</a>
@@ -123,7 +125,7 @@
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; sheet, : Expecting numeric in B1004 / R1004C2: got '&gt;1000'</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># The first empty rows were skipped and both columns are numeric (double)</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(data)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(data)</a>
 <a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;     Row Value</span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></a>
@@ -148,7 +150,7 @@
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ok. (0.02s)</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co"># Show the first rows of the first matrix</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;      col_01 col_02 </span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; [1,] NA     NA     </span></a>
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; [2,] NA     NA     </span></a>
@@ -158,7 +160,7 @@
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; [6,] "6"    "3"</span></a>
 <a class="sourceLine" id="cb2-18" data-line-number="18"></a>
 <a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co"># Show the last rows of the first matrix</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">tail</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
 <a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;         col_01 col_02 </span></a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;  [999,] "999"  "996"  </span></a>
 <a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; [1000,] "1000" "997"  </span></a>
@@ -171,16 +173,17 @@
 <a class="sourceLine" id="cb3-2" data-line-number="2">sheet &lt;-<span class="st"> </span>sheets<span class="op">$</span>sheet_<span class="dv">01</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Get the number of the row containing a non-numeric value in column 2 </span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">invalid_row &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Extremes">max</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which">which</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NA">is.na</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/numeric">as.numeric</a></span>(sheet[, <span class="dv">2</span>]))))</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">invalid_row &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(sheet[, <span class="dv">2</span>]))))</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; Warning in which(is.na(as.numeric(sheet[, 2]))): NAs introduced by coercion</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># Give a message to the user</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat</a></span>(<span class="st">"Dear user, please have a look at row"</span>, invalid_row, <span class="st">"of the sheet"</span>)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"Dear user, please have a look at row"</span>, invalid_row, <span class="st">"of the sheet"</span>)</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; Dear user, please have a look at row 1004 of the sheet</span></a></code></pre></div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -195,13 +198,15 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by <a href="https://github.com/hsonne">Hauke Sonnenberg</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
 </div>
 
