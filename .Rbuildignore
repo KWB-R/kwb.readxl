@@ -2,7 +2,7 @@
 ^_pkgdown\.yml$
 ^docs$
 ^.gitlab-ci\.yml$
-^.travis\.yml$
+^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
 ^README\.Rmd$
