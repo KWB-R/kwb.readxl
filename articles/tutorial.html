@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">kwb.readxl</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@
       <h1>Read Raw Text Information from Excel Files</h1>
                         <h4 class="author">Hauke Sonnenberg</h4>
             
-            <h4 class="date">2019-09-09</h4>
+            <h4 class="date">2020-01-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/KWB-R/kwb.readxl/blob/master/vignettes/tutorial.Rmd"><code>vignettes/tutorial.Rmd</code></a></small>
       <div class="hidden name"><code>tutorial.Rmd</code></div>
@@ -121,8 +121,8 @@
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Read the first sheet with readxl::read_excel</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">data &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span>(file)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i =</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; sheet, : Expecting numeric in B1004 / R1004C2: got '&gt;1000'</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i = sheet, :</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; Expecting numeric in B1004 / R1004C2: got '&gt;1000'</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># The first empty rows were skipped and both columns are numeric (double)</span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(data)</a>
@@ -147,7 +147,7 @@
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;   File: 'example_2.xlsx'</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; Folder: '/home/travis/R/Library/kwb.readxl/extdata'</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;   Reading sheet 'two_empty_rows' as raw text ... </span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ok. (0.02s)</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; ok. (0.01s)</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co"># Show the first rows of the first matrix</span></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(sheets<span class="op">$</span>sheet_<span class="dv">01</span>)</a>
@@ -204,7 +204,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
