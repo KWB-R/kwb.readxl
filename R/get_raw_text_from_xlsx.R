@@ -73,7 +73,7 @@ read_sheet_as_text <- function(file, sheet, dbg = TRUE)
   
   result <- kwb.utils::catAndRun(
     messageText = sprintf("  Reading sheet '%s' as raw text", sheet),
-    dbg = dbg, newLine = 3, expr = {
+    dbg = dbg, newLine = 2L, expr = {
       as.matrix(suppressMessages(readxl::read_xlsx(
         file, sheet, range = range, col_names = FALSE, col_types = "text"
       )))      
