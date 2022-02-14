@@ -105,7 +105,7 @@ create_column_metadata <- function(
 
   column_infos <- lapply(names(tables), function(table_id) {
 
-    # table_id <- names(tables)[1]
+    #table_id <- names(tables)[1L]
 
     debug_formatted(
       dbg, "Creating column metadata for table '%s'... ", table_id
@@ -115,6 +115,12 @@ create_column_metadata <- function(
 
     selected <- get_col(table_info, "table_id") == table_id
 
+    if (! any(selected)) {
+      stop_formatted(
+        "No entry for table_id '%s' found in table_info!", table_id
+      )
+    }
+    
     n_headers <- get_col(table_info, "n_headers")[selected]
 
     col_types <- get_col(table_info, "col_types")[selected]
