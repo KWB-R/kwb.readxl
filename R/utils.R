@@ -51,7 +51,7 @@ print_logical_matrix <- function(
   stopifnot(is.matrix(x))
   
   if (! is.logical(x)) {
-    x <- as.logical(x)
+    mode(x) <- "logical"
   }
 
   if (invert) {
