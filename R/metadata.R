@@ -43,15 +43,24 @@ compact_column_info <- function(column_info)
 #' Export Table Metadata to CSV file
 #'
 #' @param table_info data frame containing metadata about the tables. 
+#' @param col_types if  \code{TRUE} (default), a column with the guessed column 
+#'   types is included in the created file.
+#' @param lng one of "de" (German) or "en" (English) having an effect on column
+#'   and decimal separator characters.
 #' @param dbg logical. If \code{TRUE} (default), debug messages are shown.
 #' 
 #' @keywords internal
 #' 
-export_table_metadata <- function(table_info, dbg = TRUE) {
+export_table_metadata <- function(table_info, col_types = TRUE, lng = "de", dbg = TRUE)
+{
   stopifnot(is.data.frame(table_info))
 
   kwb.utils::checkForMissingColumns(table_info, c("table_id", "table_name"))
 
+  if (! isTRUE(col_types)) {
+    table_info <- kwb.utils::removeColumns(table_info, "col_types")
+  }
+  
   file_xlsx <- kwb.utils::getAttribute(table_info, "file")
 
   file_csv <- paste0(kwb.utils::removeExtension(file_xlsx), "_META_tmp.csv")
@@ -60,29 +69,29 @@ export_table_metadata <- function(table_info, dbg = TRUE) {
 
   debug_file(dbg, file_csv)
 
-  utils::write.csv(table_info, file = file_csv, row.names = FALSE, na = "")
+  write_csv(table_info, file_csv, lng)
 
   debug_ok(dbg)
 }
 
 # import_table_metadata --------------------------------------------------------
-import_table_metadata <- function(file, dbg = TRUE) {
+import_table_metadata <- function(file, lng = "de", dbg = TRUE)
+{
   file_csv <- paste0(kwb.utils::removeExtension(file), "_META.csv")
 
-  if (file.exists(file_csv)) {
-    debug_formatted(
-      dbg, "Reading table metadata from\n    '%s' ... ", basename(file_csv)
-    )
-
-    table_info <- utils::read.csv(file_csv, stringsAsFactors = FALSE)
-
-    debug_ok(dbg)
-  } else {
+  if (! file.exists(file_csv)) {
     debug_formatted(dbg, "No metadata file found for this Excel file.\n")
-
-    table_info <- NULL
+    return(NULL)
   }
-
+  
+  debug_formatted(
+    dbg, "Reading table metadata from\n    '%s' ... ", basename(file_csv)
+  )
+  
+  table_info <- read_csv(file_csv, lng = lng)
+  
+  debug_ok(dbg)
+  
   table_info
 }
 
@@ -91,7 +100,8 @@ create_column_metadata <- function(
   tables, table_info = attr(tables, "table_info"), dbg = TRUE
 )
 {
-  # kwb.utils::assignArgumentDefaults("create_column_metadata")
+  #kwb.utils::assignPackageObjects("kwb.readxl")
+  #kwb.utils::assignArgumentDefaults("create_column_metadata")
 
   get_col <- kwb.utils::selectColumns
 
