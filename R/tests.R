@@ -1,3 +1,6 @@
+# Provide paths to Excel files
+files <- dir("~/rawdata/abluft2/labdata/xlsx", "xlsx$", full.names = TRUE)
+
 # M A I N ----------------------------------------------------------------------
 if (FALSE)
 {
@@ -5,29 +8,31 @@ if (FALSE)
   # 2. Source this script
   
   file_database <- kwb.file::to_file_database(files)
-  file_database$files
-  file_database$folders
-  
-  # Get all tables from one file
-  tables <- get_text_tables_from_xlsx(file = files[1])
 
-  # Get table metadata
-  table_info <- get_table_info(tables)
-  
+  # Get all tables from one file
+  tables <- kwb.readxl:::get_text_tables_from_xlsx(
+    file = files[1L], 
+    ids_as_names = TRUE # to name elements according to table_ids (below)!
+  )
+
+  # Get table metadata (just read an attribute)
+  table_info <- kwb.readxl:::get_table_info(tables)
+
   # Create column metadata from the table headers
-  column_info <- create_column_metadata(tables)
+  column_info <- kwb.readxl:::create_column_metadata(tables)
 
   # Add column "skip": If the user puts an "x" into this column, the
   # corresponding table will not be imported.
   table_info$skip <- ""
 
+  # Set "file" attribute in table_info
+  attr(table_info, "file") <- kwb.utils::getAttribute(tables, "file")
+  
   # Write table metadata to "<basename>_META.csv"
-  export_table_metadata(
-    structure(table_info, file = kwb.utils::getAttribute(tables, "file"))
-  )
+  kwb.readxl:::export_table_metadata(table_info, col_types = FALSE)
   
   # import_table_metadata returns NULL if no metadata file exists
-  import_table_metadata(files[5])
+  kwb.readxl:::import_table_metadata(files[5])
 
   # Select all file indices
   indices <- seq_along(files)
@@ -42,7 +47,7 @@ if (FALSE)
   # Get all tables from all files
   system.time(all_tables <- lapply(indices, function(index) {
     cat("File index:", index)
-    get_text_tables_from_xlsx(files[index])
+    kwb.readxl:::get_text_tables_from_xlsx(files[index], ids_as_names = TRUE)
   }))
 
   #   user  system elapsed 
@@ -51,19 +56,20 @@ if (FALSE)
   names(all_tables) <- file_database$files$file_id[indices]
   
   # Create column metadata for all tables
-  column_info_list <- lapply(all_tables, create_column_metadata)
+  column_info_list <- lapply(all_tables, kwb.readxl:::create_column_metadata)
 
-  column_info <- rbindAll(
+  column_info <- kwb.utils::rbindAll(
     column_info_list,
-    nameColumn = "file_id", namesAsFactor = FALSE
+    nameColumn = "file_id", 
+    namesAsFactor = FALSE
   )
   
-  x <- compact_column_info(column_info)
+  x <- kwb.readxl:::compact_column_info(column_info)
 
   nrow(x)
   # 6141
   
-  column_info <- suggest_column_name(column_info)
+  column_info <- kwb.readxl:::suggest_column_name(column_info)
   
   column_info <- merge(column_info, file_database$files)
   
@@ -73,15 +79,18 @@ if (FALSE)
 
   file_metadata <- file.path(base_dir, "METADATA_columns_tmp.csv")
 
-  write.csv(column_info, file_metadata, row.names = FALSE)
+  kwb.readxl:::write_csv(column_info, file_metadata)
 
   # TODO: Rename METADATA_columns_tmp.csv to METADATA_columns.csv, let the user
   # modify the file and read back into column_info
   #
-  #column_info <- read_column_info(safePath(base_dir, "METADATA_columns.csv"))
-
+  #column_info <- kwb.readxl:::read_column_info(safePath(base_dir, "METADATA_columns.csv"))
+  column_info <- kwb.readxl:::read_csv(
+    kwb.utils::safePath(base_dir, "METADATA_columns.csv")
+  )
+  
   # Use column info to convert the text tables into data frames
-  all_data <- text_matrices_to_data_frames(all_tables, column_info)
+  all_data <- kwb.readxl:::text_matrices_to_data_frames(all_tables, column_info)
   
   lapply(all_data, function(all_tables) lapply(all_tables, utils::head))
     
@@ -93,17 +102,21 @@ if (FALSE)
 
   # Write a summary of the read structure to the log file
   utils::capture.output(file = logfile_summary, {
-    for (tables in all_tables) print_table_summary(tables)
+    for (tables in all_tables) {
+      kwb.readxl:::print_table_summary(tables)
+    }
   })
 
+  #kwb.utils::hsOpenWindowsExplorer(dirname(logfile_summary))
+  
   # Let's have a look at the tables in one Excel file only
-  tables <- all_tables[[1]]
+  tables <- all_tables[[1L]]
 
   # Get a description of the sheets in that file
-  get_sheet_info(tables)
+  kwb.readxl:::get_sheet_info(tables)
   
   # Get a description of tables in that file
-  get_table_info(tables)
+  kwb.readxl:::get_table_info(tables)
 
   # Get the name of the file that was read
   kwb.utils::getAttribute(tables, "file")
@@ -115,31 +128,38 @@ if (FALSE)
 
   # Try to guess the header rows for each table...
   n_headers <- sapply(names(tables), function(table_id) {
-    guess_number_of_headers_from_text_matrix(
+    kwb.readxl:::guess_number_of_headers_from_text_matrix(
       tables[[table_id]],
       table_id = table_id
     )
   })
 
-  print_logical_matrix(guess_header_matrix(x = tables$table_01_01, n_max))
-  print_logical_matrix(guess_header_matrix(x = tables$table_02_01, n_max))
+  n_max = 10L
+  
+  print_guess <- function(x) {
+    kwb.readxl:::print_logical_matrix(x = guess_header_matrix(x, n_max))
+  }   
+
+  print_guess(x = tables$table_01_01)
+  print_guess(x = tables$table_02_01)
 
   print_header_guesses(tables, n_max, file = logfile_headers)
 
-  lapply(all_tables[[3]], guess_header_matrix, 4)
+  lapply(all_tables[[2L]], guess_header_matrix, 4L)
 
   utils::head(x <- tables$table_02_01)
 
   is_empty <- (is.na(x) | x == "")
 
-  print_logical_matrix(utils::head(is_empty))
-  print_logical_matrix(utils::head(is_empty), invert = TRUE)
+  kwb.readxl:::print_logical_matrix(utils::head(is_empty))
+  kwb.readxl:::print_logical_matrix(utils::head(is_empty), invert = TRUE)
 }
 
 # Text Matrices to data frames -------------------------------------------------
-if (FALSE) {
+if (FALSE)
+{
   # Convert text matrices of known format
-  tables <- get_text_tables_from_xlsx(file = files[1])
+  tables <- kwb.readxl:::get_text_tables_from_xlsx(file = files[1L])
 
   selected <- grepl("^table_02_", names(tables))
 
@@ -153,29 +173,35 @@ if (FALSE) {
 
 # print_header_guesses ---------------------------------------------------------
 print_header_guesses <- function(
-                                 text_matrices, n_max = 5, file = NULL, dbg = TRUE) {
-  if (!is.null(file)) {
-    debug_formatted(dbg, "Writing output to '%s'... ", file)
+  text_matrices, n_max = 5L, file = NULL, dbg = TRUE
+)
+{
+  if (! is.null(file)) {
+    
+    kwb.readxl:::debug_formatted(dbg, "Writing output to '%s'... ", file)
 
     utils::capture.output(file = file, print_header_guesses(text_matrices, n_max))
 
-    debug_ok(dbg)
+    kwb.readxl:::debug_ok(dbg)
+    
   } else {
 
     # matrix_name <- "table_03_01"
 
     for (matrix_name in names(text_matrices)) {
+      
       header <- guess_header_matrix(x = text_matrices[[matrix_name]], n_max)
 
-      debug_formatted(dbg, "\n%s:\n", matrix_name)
+      kwb.readxl:::debug_formatted(dbg, "\n%s:\n", matrix_name)
 
-      print_logical_matrix(header)
+      kwb.readxl:::print_logical_matrix(header)
     }
   }
 }
 
 # guess_header_matrix ----------------------------------------------------------
-guess_header_matrix <- function(x, n_max = 10) {
+guess_header_matrix <- function(x, n_max = 10L) 
+{
   stopifnot(is.character(x))
 
   kwb.utils::stopIfNotMatrix(x)
