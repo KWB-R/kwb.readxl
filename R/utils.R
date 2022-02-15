@@ -76,13 +76,14 @@ print_logical_matrix <- function(
 }
 
 # read_csv ---------------------------------------------------------------------
-read_csv <- function(file, lng = "de")
+read_csv <- function(file, lng = "de", na.strings = "")
 {
   kwb.utils::callWith(
     utils::read.table, 
     file = file, 
     kwb.utils::argsCsv(lng), 
     header = TRUE, 
+    na.strings = na.strings,
     stringsAsFactors = FALSE
   )
 }
