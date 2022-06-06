@@ -210,7 +210,7 @@ guess_header_matrix <- function(x, n_max = 10L)
 
   do.call(cbind, lapply(x_head, function(column_values) {
     sapply(seq_along(column_values), function(i) {
-      as.integer(!(column_values[i] %in% column_values[-(1:i)]))
+      as.integer(!(column_values[i] %in% column_values[-seq_len(i)]))
     })
   }))
 }
