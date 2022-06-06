@@ -1,6 +1,9 @@
 # get_text_tables_from_xlsx ----------------------------------------------------
-get_text_tables_from_xlsx <- function(file, table_info = NULL, dbg = TRUE)
+get_text_tables_from_xlsx <- function(
+  file, table_info = NULL, dbg = TRUE, ids_as_names = FALSE
+)
 {
+  #kwb.utils::assignPackageObjects("kwb.readxl")
   #kwb.utils::assignArgumentDefaults(get_text_tables_from_xlsx)
 
   # Get one character matrix per sheet
@@ -14,7 +17,6 @@ get_text_tables_from_xlsx <- function(file, table_info = NULL, dbg = TRUE)
 
   # If there was no metadata file, split sheets into tables and create metadata
   if (! is.null(table_info)) {
-    
     stop("Not implemented: extract tables with known ranges")
     #extract_tables_with_ranges(text_sheets, table_info)
   }
@@ -30,12 +32,16 @@ get_text_tables_from_xlsx <- function(file, table_info = NULL, dbg = TRUE)
 
   result <- do.call(c, all_tables)
   
+  # Name the elements in the result list according to the table ids
+  if (ids_as_names) {
+    result <- stats::setNames(result, table_info$table_id)
+  }
+  
   structure(
     result, 
     table_info = table_info, 
     sheet_info = get_sheet_info(text_sheets), 
     file = file
-    #,names = table_info$table_id
   )
 }
 

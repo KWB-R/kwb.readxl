@@ -51,7 +51,7 @@ print_logical_matrix <- function(
   stopifnot(is.matrix(x))
   
   if (! is.logical(x)) {
-    x <- as.logical(x)
+    mode(x) <- "logical"
   }
 
   if (invert) {
@@ -75,8 +75,34 @@ print_logical_matrix <- function(
   }
 }
 
+# read_csv ---------------------------------------------------------------------
+read_csv <- function(file, lng = "de", na.strings = "")
+{
+  kwb.utils::callWith(
+    utils::read.table, 
+    file = file, 
+    kwb.utils::argsCsv(lng), 
+    header = TRUE, 
+    na.strings = na.strings,
+    stringsAsFactors = FALSE
+  )
+}
+
 # stop_formatted ---------------------------------------------------------------
 stop_formatted <- function(fmt, ...)
 {
   stop(sprintf(fmt, ...), call. = FALSE)
+}
+
+# write_csv --------------------------------------------------------------------
+write_csv <- function(x, file, lng = "de")
+{
+  kwb.utils::callWith(
+    FUN = utils::write.table, 
+    kwb.utils::argsCsv(lng),
+    x = x, 
+    file = file, 
+    row.names = FALSE, 
+    na = ""
+  )
 }
